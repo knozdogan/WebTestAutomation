@@ -7,11 +7,14 @@ on:
   pull_request:
     branches:
       - main
-  #workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      CI: true
+      API_BASE_URL: ${{ vars.API_BASE_URL }}
     #strategy:
      # matrix:
       #  browser: [chromium, firefox]
@@ -33,9 +36,6 @@ jobs:
 
       - name: Run API tests (Playwright API)
         run: pytest api_tests/ --alluredir=reports/allure-results
-        env:
-          CI: true
-          API_BASE_URL: ${{ env.API_BASE_URL }}
 
       - name: Generate Allure Report
         run: |
