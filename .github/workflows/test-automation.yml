@@ -7,14 +7,14 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
+  #workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        browser: [chromium, firefox]
+    #strategy:
+     # matrix:
+      #  browser: [chromium, firefox]
 
     steps:
       - name: Checkout repository
