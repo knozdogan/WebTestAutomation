@@ -1,6 +1,5 @@
 import allure
 import logging
-import json
 from pydantic import ValidationError, BaseModel
 from playwright.sync_api import APIRequestContext, APIResponse, expect
 
@@ -10,9 +9,10 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 def send_request(
         api_context: APIRequestContext, 
         method: str, 
-        endpoint: str, 
-        status_code: int, 
-        schema: BaseModel = None, **kwargs)-> APIResponse:
+        endpoint: str,
+        status_code: int,
+        data: dict = None, 
+        schema: BaseModel = None)-> APIResponse:
     """
     Request sender with schema validation.
 
@@ -25,13 +25,13 @@ def send_request(
     :return: APIResponse
     """
     with allure.step(f"Sending {method} request to {endpoint}"):
-        logging.info(f"Request: {method} {endpoint} | Data: {kwargs.get('json', '')}")
+        logging.info(f"Request: {method} {endpoint} | Data: {data}")
 
-        response: APIResponse = api_context.fetch(endpoint, method=method, **kwargs)
-        logging.info(f"Response: {response.status} | {response.json()}")    # log response before validation
+        response: APIResponse = api_context.fetch(endpoint, method=method, )
+        logging.info(f"Response: {response.status} | {response.text()}")    # log response before validation
 
         # Validate response status
-        expect(response.status).toBe(status_code)
+        assert response.status == status_code, f"Expected status code: {status_code}, Actual: {response.status}"
 
         # Validate response schema if provided
         if schema:
@@ -39,7 +39,7 @@ def send_request(
                 schema.model_validate_json(response.json())
             except ValidationError as e:
                 logging.error(f"Schema validation failed: {e}")
-                allure.attach(json.dumps(response.json(), indent=2), name="Invalid Response", attachment_type=allure.attachment_type.JSON)
+                allure.attach(response.text(), name="Invalid Response", attachment_type=allure.attachment_type.TEXT)
                 raise AssertionError("Response schema validation failed!")
 
         return response
