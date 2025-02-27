@@ -31,6 +31,7 @@ pyee==12.1.1
 pytest==8.3.4
 pytest-base-url==2.1.0
 pytest-playwright==0.7.0
+python-dotenv==1.0.1
 python-slugify==8.0.4
 pyzmq==26.2.1
 requests==2.32.3

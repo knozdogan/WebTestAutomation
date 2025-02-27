@@ -4,7 +4,9 @@ import os
 from dotenv import load_dotenv
 from typing import Generator
 
-load_dotenv()
+if not os.getenv('API_BASE_URL'):
+    load_dotenv()
+
 BASE_URL = os.getenv('API_BASE_URL')
 assert BASE_URL, "API_BASE_URL is not set in .env file"
 
