@@ -32,6 +32,8 @@ jobs:
 
       - name: Run API tests (Playwright API)
         run: pytest api_tests/ --alluredir=reports/allure-results
+        env:
+          API_BASE_URL: ${{ env.API_BASE_URL }}
 
       - name: Generate Allure Report
         run: |
