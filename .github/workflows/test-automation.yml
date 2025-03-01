@@ -3,17 +3,13 @@ name: Test Automation CI
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+      - "**"
+  #workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      CI: true
       API_BASE_URL: ${{ secrets.API_BASE_URL }}
     #strategy:
      # matrix:
