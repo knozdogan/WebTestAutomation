@@ -24,9 +24,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.9'
-      
-      - name: Print brew version
-        run: brew --version
 
       - name: Install dependencies
         run: |
@@ -35,17 +32,15 @@ jobs:
           sudo apt-get install -y allure  # Install Allure on GitHub runner
 
       - name: Run API tests (Playwright API)
-        run: pytest tests/api-tests/ --alluredir=reports/allure-results
+        run: pytest tests/api-tests/ --alluredir=allure-results
 
-      - name: Generate Allure Report
+      - name: Allure Report with history
         if: always()
-        run: |
-          allure generate reports/allure-results -o reports/allure-report --clean
-          allure open reports/allure-report &
+        uses: simple-elf/allure-report-action@v1.12
 
       - name: Upload Allure Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
-          path: reports/allure-report
+          path: allure-report
