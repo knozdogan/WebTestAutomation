@@ -7,7 +7,7 @@ on:
   #workflow_dispatch:
 
 env:
-  API_BASE_URL: ${{ secrets.API_BASE_URL }}
+  API_BASE_URL: https://petstore.swagger.io/v2
 
 jobs:
   test:

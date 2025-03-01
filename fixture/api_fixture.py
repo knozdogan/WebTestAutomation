@@ -8,7 +8,7 @@ if not os.getenv('API_BASE_URL'):
     load_dotenv()
 
 BASE_URL = os.getenv('API_BASE_URL')
-#assert BASE_URL, "API_BASE_URL is not set in .env file"
+assert BASE_URL, "API_BASE_URL is not defined"
 
 @pytest.fixture(scope="session")
 def api_request_context(playwright: Playwright) -> Generator[APIRequestContext, None, None]:
