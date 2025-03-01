@@ -1,4 +1,4 @@
-from schema import PetSchema
+from api.schema import PetSchema
 from playwright.sync_api import APIRequestContext
 from utils.request_helper import send_request
 from utils.step_decorator import step
@@ -54,5 +54,4 @@ class PetStoreApi:
             endpoint=f'{self.path}/pet/{pet_id}',
             status_code=200
         )
-    
     
