@@ -6,11 +6,12 @@ on:
       - "**"
   #workflow_dispatch:
 
+env:
+  API_BASE_URL: ${{ secrets.API_BASE_URL }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      API_BASE_URL: ${{ secrets.API_BASE_URL }}
     #strategy:
      # matrix:
       #  browser: [chromium, firefox]
@@ -24,9 +25,8 @@ jobs:
         with:
           python-version: '3.9'
       
-      - name: "Show environmetn variables"
-        run: |
-          env
+      - name: Print Environment Variable
+        run: echo "API_BASE_URL=$API_BASE_URL"
 
       - name: Install dependencies
         run: |
