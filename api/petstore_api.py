@@ -2,11 +2,12 @@ from api.schema import PetSchema
 from playwright.sync_api import APIRequestContext
 from utils.request_helper import send_request
 from utils.step_decorator import step
+from pydantic import RootModel
 
 class PetStoreApi:
     def __init__(self, api_context: APIRequestContext):
         self.api_context = api_context
-        self.path = '/pet'
+        self.path = 'pet'
 
     @step('Get pet')
     def get_pet(self, pet_id: int) -> PetSchema:
@@ -54,4 +55,16 @@ class PetStoreApi:
             endpoint=f'{self.path}/pet/{pet_id}',
             status_code=200
         )
+
+    @step('Get pet by status')
+    def get_pet_by_status(self, status: str) -> list[PetSchema]:
+        response = send_request(
+            self.api_context,
+            method='GET',
+            endpoint=f'{self.path}/findByStatus?status={status}',
+            status_code=200,
+            schema=RootModel(list[PetSchema])
+        )
+        response_json = response.json()
+        return [PetSchema(**pet) for pet in response_json]
     

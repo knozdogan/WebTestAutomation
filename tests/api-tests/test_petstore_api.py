@@ -60,3 +60,10 @@ def test_delete_pet(pet_store_api):
     pet_store_api.delete_pet(pet_id)
     with pytest.raises(Exception):
         pet_store_api.get_pet(pet_id)
+
+@allure.title("Get pet by status")
+def test_get_pet_by_status(pet_store_api):
+    status = 'available'
+    pets = pet_store_api.get_pet_by_status(status)
+    for pet in pets:
+        assert pet.status == status
