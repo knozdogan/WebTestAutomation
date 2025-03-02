@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, RootModel
 from typing import Optional
 
 class IdNameSchema(BaseModel):
@@ -16,6 +16,29 @@ class PetSchema(BaseModel):
     id: int
     name: str
     status: Optional[str]
-    category: Optional[IdNameSchema]
+    category: IdNameSchema
     photoUrls: Optional[list]
-    tags: Optional[IdNameSchema]
+    tags: Optional[list[IdNameSchema]]
+
+"""
+[
+  {
+    "id": 0,
+    "category": {
+      "id": 0,
+      "name": "string"
+    },
+    "name": "doggie",
+    "photoUrls": [
+      "string"
+    ],
+    "tags": [
+      {
+        "id": 0,
+        "name": "string"
+      }
+    ],
+    "status": "available"
+  }
+]
+"""

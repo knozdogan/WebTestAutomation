@@ -36,7 +36,7 @@ def send_request(
         # Validate response schema if provided
         if schema:
             try:
-                schema.model_validate_json(response.json())
+                schema.model_validate(response.json())
             except ValidationError as e:
                 logging.error(f"Schema validation failed: {e}")
                 allure.attach(response.text(), name="Invalid Response", attachment_type=allure.attachment_type.TEXT)
