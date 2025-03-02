@@ -5,6 +5,7 @@
 *.pyc
 .env
 allure-results
+*.Ds_Store
 #import os
 #from dotenv import load_dotenv
 #load_dotenv()
