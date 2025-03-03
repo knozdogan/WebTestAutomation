@@ -17,7 +17,7 @@ BROWSER = os.getenv("BROWSER", "chromium")
 @pytest.fixture(scope="session")
 def setup(playwright: Playwright):
     """Provides a browser session for UI tests."""
-    browser = getattr(playwright, BROWSER).launch(headless=False)
+    browser = getattr(playwright, BROWSER).launch(headless=True)
     context = browser.new_context(base_url=BASE_URL)
     page = context.new_page()
     yield page
@@ -26,7 +26,7 @@ def setup(playwright: Playwright):
 @pytest.fixture(scope="function")
 def home_page(playwright: Playwright):
     """Provides a browser session for UI tests."""
-    browser = getattr(playwright, BROWSER).launch(headless=False)
+    browser = getattr(playwright, BROWSER).launch(headless=True)
     context = browser.new_context(base_url=BASE_URL)
     new_page = context.new_page()
     page = HomePage(new_page)
@@ -39,7 +39,7 @@ def home_page(playwright: Playwright):
 @pytest.fixture(scope="function")
 def career_page(playwright: Playwright):
     """Provides a browser session for UI tests."""
-    browser = getattr(playwright, BROWSER).launch(headless=False)
+    browser = getattr(playwright, BROWSER).launch(headless=True)
     context = browser.new_context(base_url=BASE_URL)
     new_page = context.new_page()
     page = HomePage(new_page)
@@ -56,7 +56,7 @@ def career_page(playwright: Playwright):
 def qa_career_page(playwright: Playwright):
     """Provides a browser session for UI tests."""
     playwright.selectors.set_test_id_attribute('data-select2-id')
-    browser = getattr(playwright, BROWSER).launch(headless=False)
+    browser = getattr(playwright, BROWSER).launch(headless=True)
     context = browser.new_context(base_url=BASE_URL)
     new_page = context.new_page()
     page = HomePage(new_page)
