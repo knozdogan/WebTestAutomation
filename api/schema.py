@@ -20,25 +20,12 @@ class PetSchema(BaseModel):
     photoUrls: Optional[list]
     tags: Optional[list[IdNameSchema]]
 
-"""
-[
-  {
-    "id": 0,
-    "category": {
-      "id": 0,
-      "name": "string"
-    },
-    "name": "doggie",
-    "photoUrls": [
-      "string"
-    ],
-    "tags": [
-      {
-        "id": 0,
-        "name": "string"
-      }
-    ],
-    "status": "available"
-  }
-]
-"""
+ListPetSchema = RootModel(list[PetSchema])
+
+class CommonResponseSchema(BaseModel):
+    """
+    Pydantic schema for common response object.
+    """
+    code: int
+    type: str
+    message: str
