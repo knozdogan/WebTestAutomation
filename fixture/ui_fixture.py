@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from pages.home_page import HomePage
 from pages.career_page import CareerPage
 from pages.qa_career_page import QACareerPage
+from playwright.sync_api import Playwright
 
 if not os.getenv('WEB_BASE_URL'):
     load_dotenv()
@@ -14,7 +15,7 @@ assert BASE_URL, "WEB_BASE_URL is not defined"
 BROWSER = os.getenv("BROWSER", "chromium")
 
 @pytest.fixture(scope="session")
-def setup(playwright):
+def setup(playwright: Playwright):
     """Provides a browser session for UI tests."""
     browser = getattr(playwright, BROWSER).launch(headless=False)
     context = browser.new_context(base_url=BASE_URL)
@@ -23,7 +24,7 @@ def setup(playwright):
     browser.close()
 
 @pytest.fixture(scope="function")
-def home_page(playwright):
+def home_page(playwright: Playwright):
     """Provides a browser session for UI tests."""
     browser = getattr(playwright, BROWSER).launch(headless=False)
     context = browser.new_context(base_url=BASE_URL)
@@ -36,7 +37,7 @@ def home_page(playwright):
     browser.close()
 
 @pytest.fixture(scope="function")
-def career_page(playwright):
+def career_page(playwright: Playwright):
     """Provides a browser session for UI tests."""
     browser = getattr(playwright, BROWSER).launch(headless=False)
     context = browser.new_context(base_url=BASE_URL)
@@ -52,7 +53,9 @@ def career_page(playwright):
     browser.close()
 
 @pytest.fixture(scope="function")
-def qa_career_page(playwright):
+def qa_career_page(playwright: Playwright):
+    """Provides a browser session for UI tests."""
+    playwright.selectors.set_test_id_attribute('data-select2-id')
     browser = getattr(playwright, BROWSER).launch(headless=False)
     context = browser.new_context(base_url=BASE_URL)
     new_page = context.new_page()
