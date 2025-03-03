@@ -17,7 +17,9 @@ def api_request_context(playwright: Playwright) -> Generator[APIRequestContext, 
     """
     request_context = playwright.request.new_context(
         base_url=BASE_URL,
-        extra_http_headers={'accept': 'application/json'}
+        extra_http_headers={
+            'accept': 'application/json'
+        }
     )
     yield request_context
     request_context.dispose()
