@@ -1,15 +1,15 @@
 from api.schema import PetSchema
 from playwright.sync_api import APIRequestContext
 from utils.request_helper import send_request
-from utils.step_decorator import step
 from pydantic import RootModel
+import allure
 
 class PetStoreApi:
     def __init__(self, api_context: APIRequestContext):
         self.api_context = api_context
         self.path = 'pet'
 
-    @step('Get pet')
+    @allure.step('Get pet')
     def get_pet(self, pet_id: int) -> PetSchema:
         response = send_request(
             self.api_context,
@@ -21,7 +21,7 @@ class PetStoreApi:
         response_json = response.json()
         return PetSchema(**response_json)
     
-    @step('Add pet')
+    @allure.step('Add pet')
     def add_pet(self, pet: PetSchema) -> PetSchema:
         response = send_request(
             self.api_context,
@@ -34,7 +34,7 @@ class PetStoreApi:
         response_json = response.json()
         return PetSchema(**response_json)
     
-    @step('Update pet')
+    @allure.step('Update pet')
     def update_pet(self, pet: PetSchema) -> PetSchema:
         response = send_request(
             self.api_context,
@@ -47,7 +47,7 @@ class PetStoreApi:
         response_json = response.json()
         return PetSchema(**response_json)
     
-    @step('Delete pet')
+    @allure.step('Delete pet')
     def delete_pet(self, pet_id: int):
         send_request(
             self.api_context,
@@ -56,7 +56,7 @@ class PetStoreApi:
             status_code=200
         )
 
-    @step('Get pet by status')
+    @allure.step('Get pet by status')
     def get_pet_by_status(self, status: str) -> list[PetSchema]:
         response = send_request(
             self.api_context,

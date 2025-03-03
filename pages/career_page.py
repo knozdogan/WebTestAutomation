@@ -1,5 +1,5 @@
 from playwright.sync_api import Page, expect
-from utils.step_decorator import step
+import allure
 
 class CareerPage:
     def __init__(self, page: Page):
@@ -36,20 +36,20 @@ class CareerPage:
 
 
 
-    @step('Verify career page is loaded')
+    @allure.step('Verify career page is loaded')
     def verify_career_page_is_loaded(self):
         self.page.wait_for_load_state("load")
         expect(self.page).to_have_title('Ready to disrupt? | Insider Careers')
     
-    @step('Click on Find your role button')
+    @allure.step('Click on Find your role button')
     def click_on_find_your_role_button(self):
         self.find_your_role_button_1st.click()
 
-    @step('Click on See all teams button')
+    @allure.step('Click on See all teams button')
     def click_on_see_all_teams_button(self):
         self.all_teams_button.click()
 
-    @step('Verify all teams are displayed')
+    @allure.step('Verify all teams are displayed')
     def verify_all_teams_are_displayed(self):
         expect(self.team_customer_success_lin).to_be_visible()
         expect(self.team_sales).to_be_visible()
@@ -67,16 +67,16 @@ class CareerPage:
         expect(self.team_partner_support).to_be_visible()
         expect(self.team_product_design).to_be_visible()
 
-    @step('Press right arrow key')
+    @allure.step('Press right arrow key')
     def press_right_arrow_key(self):
         self.page.locator("body").press("ArrowRight")
 
-    @step('Press left arrow key')
+    @allure.step('Press left arrow key')
     def press_left_arrow_key(self):
         self.page.locator("body").press("ArrowLeft")
 
 
-    @step('Verify all locations are displayed')
+    @allure.step('Verify all locations are displayed')
     def verify_locations_are_displayed(self):
         self.location_heading.scroll_into_view_if_needed()
         expect(self.location_heading).to_be_visible()
@@ -92,7 +92,7 @@ class CareerPage:
         self.press_left_arrow_key()
         expect(self.location_new_york).to_be_visible()
 
-    @step('Verify life at insider section is displayed')
+    @allure.step('Verify life at insider section is displayed')
     def verify_life_at_insider_section_is_displayed(self):
         self.life_at_insider_heading.scroll_into_view_if_needed()
         expect(self.life_at_insider_heading).to_be_visible()
