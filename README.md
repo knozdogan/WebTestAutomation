@@ -116,7 +116,6 @@ locust -f tests/performance-tests/locustfile.py --headless --users 1 -t 10s -H h
 
 ## Continuous Integration (CI)
 This project uses GitHub Actions for CI. The following workflows are defined:
-- **Playwright Tests:** Runs UI and API tests on push or pull request to the main branch.
+- **Playwright Tests:** Runs UI and API tests on push or pull request to the main branch. [Latest Allure Report](https://knozdogan.github.io/WebTestAutomation/)
 - **Performance Tests:** Runs Locust performance tests on push or pull request to the main branch.
-
 These workflows are triggered on push and pull request events to ensure that all tests are run automatically.
