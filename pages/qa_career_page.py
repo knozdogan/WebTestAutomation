@@ -13,8 +13,6 @@ class QACareerPage:
         self.view_role_button = page.get_by_role("link", name="View Role")
         self.job_list = page.locator(".position-list-item-wrapper")
 
-
-
     @allure.step('Verify QA career page is loaded')
     def verify_qa_career_page_is_loaded(self):
         self.page.wait_for_load_state("load")
@@ -71,5 +69,3 @@ class QACareerPage:
             self.job_list.first.click()
             self.view_role_button.first.click()
             expect(new_tab.value).to_have_url(re.compile(r"^https://jobs.lever.co/useinsider/"))
-
-    
