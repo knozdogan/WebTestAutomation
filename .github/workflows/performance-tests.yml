@@ -19,13 +19,21 @@ jobs:
         python -m pip install --upgrade pip
         pip install locust
     - name: Run your tests
-      working-directory: tests/performance-tests
-      run: locust --headless --users 1 -t 10s -H https://www.n11.com --html report.html
+      run: |
+        mkdir test-results
+        locust -f tests/performance-tests/locustfile.py --headless --users 1 -t 10s -H https://www.n11.com --html test-results/report.html
 
     - name: Upload report
       uses: actions/upload-artifact@v4
       if: always()
       with:
         name: report
-        path: report.html
+        path: test-results/report.html
     
+    - name: Deploy report to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v2
+      if: always()
+      with:
+        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: test-results 
