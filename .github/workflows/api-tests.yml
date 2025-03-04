@@ -8,6 +8,9 @@ env:
   API_BASE_URL: https://petstore.swagger.io/v2/
   WEB_BASE_URL: https://useinsider.com/
   API_KEY: special-key
+permissions:
+  id-token: write
+  pages: write
 jobs:
   test:
     timeout-minutes: 60
