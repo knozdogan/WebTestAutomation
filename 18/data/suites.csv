@@ -1,8 +1,0 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"failed","Tue Mar 04 08:53:58 GMT 2025","Tue Mar 04 08:54:03 GMT 2025","4787","tests.web-app-tests","test_qa_career_page","","","","Check all teams section in career page is visible",""
-"failed","Tue Mar 04 08:54:07 GMT 2025","Tue Mar 04 08:54:18 GMT 2025","11492","tests.web-app-tests","test_qa_career_page","","","","Check all listed jobs has QA department",""
-"failed","Tue Mar 04 08:53:43 GMT 2025","Tue Mar 04 08:53:54 GMT 2025","11546","tests.web-app-tests","test_qa_career_page","","","","Check all teams section in career page is visible",""
-"passed","Tue Mar 04 08:53:39 GMT 2025","Tue Mar 04 08:53:39 GMT 2025","36","tests.web-app-tests","test_career_page","","","","Check life at insider section in career page is visible",""
-"passed","Tue Mar 04 08:53:18 GMT 2025","Tue Mar 04 08:53:29 GMT 2025","10793","tests.web-app-tests","test_career_page","","","","Check all teams section in career page is visible",""
-"passed","Tue Mar 04 08:53:34 GMT 2025","Tue Mar 04 08:53:34 GMT 2025","159","tests.web-app-tests","test_career_page","","","","Check all locations section in career page is visible",""
-"passed","Tue Mar 04 08:54:22 GMT 2025","Tue Mar 04 08:54:29 GMT 2025","6877","tests.web-app-tests","test_qa_career_page","","","","Check redirection to Lever application form",""
