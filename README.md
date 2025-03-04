@@ -20,34 +20,52 @@ pip install -r requirements.txt
 ## Usage
 To run the performance tests using Locust, use the following command:
 ```bash
-locust
+locust -f tests/performance-tests/locustfile.py --headless --users 1 -t 10s -H https://www.example.com --html test-results/report.html
 ```
 
 To run the API and UI tests using Python Playwright, use the following command:
 ```bash
-pytest
+pytest -v
 ```
 
 ## Directory Structure
 ```
 /WebTestAutomation
-├── .github
-│   ├── workflows
-│       ├── api-tests.yml
-│       ├── ui-tests.yml
-│       ├── performance-tests.yml
-├── fixtures
-├── tests
-│   ├── api-tests
-│   ├── ui-tests
-│   └── performance-tests
+├── .github/
+│   └── workflows/
+│       ├── ci-tests.yml
+│       └── performance-tests.yml
+├── fixtures/
+│   ├── api_fixture.py
+│   └── ui_fixture.py
+├── api/
+│   ├── petstore_api.py
+│   └── schema.py
+├── pages/
+│   ├── career_page.py
+│   ├── home_page.py
+│   └── qa_career_page.py
+├── tests/
+│   ├── api-tests/
+│       └── test_petstore_api.py
+│   ├── web-app-tests/
+│       ├── test_career_page.py
+│       └── test_qa_career_page.py
+│   ├── performance-tests/
+│       └── locustfile.py
+│   ├── __init__.py
+│   └── conftest.py
+├── utils/
+│   └── request_helper.py
+├── .gitignore
+├── pyproject.toml
+├── README.md
 └── requirements.txt
 ```
 
 ## Continuous Integration
 This project uses GitHub Actions for continuous integration. The following workflows are defined:
-- **API Tests**: `.github/workflows/api-tests.yml`
-- **UI Tests**: `.github/workflows/ui-tests.yml`
+- **Playwright Tests**: `.github/workflows/ci-tests.yml`
 - **Performance Tests**: `.github/workflows/performance-tests.yml`
 
 These workflows are triggered on push and pull request events to ensure that all tests are run automatically.
