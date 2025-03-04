@@ -1,8 +1,9 @@
 import pytest
 import allure
 from playwright.sync_api import APIRequestContext
-from api.schema import PetSchema, IdNameSchema
-from api.petstore_api import PetStoreApi
+from api.schema import CommonResponseSchema, InvalidPetSchema, PetSchema, IdNameSchema
+from api.petstore_api import PetStoreApi, send_request
+import os
 
 @pytest.fixture(scope='function')
 def pet_store_api(api_request_context: APIRequestContext):
@@ -52,3 +53,37 @@ def test_get_pet_by_status(pet_store_api, status):
     pets = pet_store_api.get_pet_by_status(status)
     for pet in pets:
         assert pet['status'] == status
+
+@allure.title("Get pet with invalid ID")
+@pytest.mark.parametrize('id', [1e15, '1a0', -12])
+def test_get_pet_invalid_id(pet_store_api,id):
+    send_request(
+        pet_store_api.api_context,
+        method='GET',
+        endpoint=f'{pet_store_api.path}/{id}',
+        status_code=404,
+        schema=CommonResponseSchema
+    )
+
+@allure.title("Add pet with invalid id field")
+def test_add_pet_missing_fields(pet_store_api):
+    invalid_pet = InvalidPetSchema(
+        id='1a',
+        category=IdNameSchema(id=1, name='Dogs'),
+        name='doggie',
+        photoUrls=['string'],
+        tags=[],
+        status='available'
+    )
+    response = send_request(
+        pet_store_api.api_context,
+        method='POST',
+        endpoint=f'{pet_store_api.path}',
+        status_code=500,
+        extra_headers={'Content-Type': 'application/json'},
+        data=invalid_pet.model_dump(),
+        schema=CommonResponseSchema
+    )
+    assert response.message == 'something bad happened'
+    assert response.code == 500
+    assert response.type == 'unknown'
