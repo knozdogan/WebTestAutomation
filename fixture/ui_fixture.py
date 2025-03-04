@@ -23,9 +23,9 @@ def setup(playwright: Playwright):
     yield page
     browser.close()
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def home_page(playwright: Playwright):
-    """Provides a browser session for UI tests."""
+    """Provides a browser session for HomePage UI tests."""
     browser = getattr(playwright, BROWSER).launch(headless=True)
     context = browser.new_context(base_url=BASE_URL)
     new_page = context.new_page()
@@ -36,9 +36,9 @@ def home_page(playwright: Playwright):
     yield page
     browser.close()
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def career_page(playwright: Playwright):
-    """Provides a browser session for UI tests."""
+    """Provides a browser session for CareerPage UI tests."""
     browser = getattr(playwright, BROWSER).launch(headless=True)
     context = browser.new_context(base_url=BASE_URL)
     new_page = context.new_page()
@@ -52,9 +52,9 @@ def career_page(playwright: Playwright):
     yield page
     browser.close()
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def qa_career_page(playwright: Playwright):
-    """Provides a browser session for UI tests."""
+    """Provides a browser session for QACareerPage UI tests."""
     playwright.selectors.set_test_id_attribute('data-select2-id')
     browser = getattr(playwright, BROWSER).launch(headless=True)
     context = browser.new_context(base_url=BASE_URL)
