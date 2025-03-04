@@ -29,11 +29,3 @@ jobs:
       with:
         name: report
         path: test-results/report.html
-    
-    - name: Deploy report to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v2
-      if: always()
-      with:
-        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: test-results 
