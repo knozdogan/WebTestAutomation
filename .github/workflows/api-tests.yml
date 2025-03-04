@@ -4,10 +4,6 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-env:
-  API_BASE_URL: https://petstore.swagger.io/v2/
-  WEB_BASE_URL: https://useinsider.com/
-  API_KEY: special-key
 jobs:
   test:
     timeout-minutes: 60
@@ -31,7 +27,14 @@ jobs:
       with:
         name: playwright-traces
         path: test-results/
-    - name: Allure Report with history
-      if: always()
-      uses: simple-elf/allure-report-action@v1.12
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        # Upload entire repository
+        path: 'allure-results'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
     
