@@ -1,0 +1,8 @@
+# pyproject.toml
+[tool.pytest.ini_options]
+addopts = [
+    "--alluredir=allure-results"
+]
+testpaths = [
+    "tests",
+]
