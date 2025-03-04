@@ -29,3 +29,14 @@ class CommonResponseSchema(BaseModel):
     code: int
     type: str
     message: str
+
+class InvalidPetSchema(BaseModel):
+    """
+    Pydantic schema for Pet object.
+    """
+    id: str
+    name: str
+    status: Optional[str]
+    category: IdNameSchema
+    photoUrls: Optional[list]
+    tags: Optional[list[IdNameSchema]]
